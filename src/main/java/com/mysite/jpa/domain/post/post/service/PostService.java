@@ -13,14 +13,13 @@ import java.time.LocalDateTime;
 public class PostService {
     private final PostRepository postRepository;
     public Post write(String title, String content) {
-        Post post = new Post(
-                null,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                title,
-                content,
-                false
-        );
+        Post post =  Post
+                .builder()
+                .title(title)
+                .content(content)
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .build();
 
         postRepository.save(post);
         return post;
