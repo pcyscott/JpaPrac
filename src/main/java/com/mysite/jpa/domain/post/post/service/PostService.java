@@ -4,6 +4,8 @@ import com.mysite.jpa.domain.post.post.entity.Post;
 import com.mysite.jpa.domain.post.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
+import java.security.Provider;
 import java.time.LocalDateTime;
 
 @Service
@@ -11,19 +13,26 @@ import java.time.LocalDateTime;
 public class PostService {
     private final PostRepository postRepository;
     public Post write(String title, String content) {
-        Post post = new Post();
-        post.setCreatedAt(LocalDateTime.now());
-        post.setModifiedAt(LocalDateTime.now());
-        post.setTitle(title);
-        post.setTitle(content);
-        post.setBlind(false);
+        Post post = new Post(
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                title,
+                content,
+                false
+        );
 
         postRepository.save(post);
         return post;
     }
 
-    public long count() {
+    public
+    long count() {
         return postRepository.count();
+    }
+
+    public Optional<Post> findById(long id) {
+        return postRepository.findById(id);
     }
 }
 
