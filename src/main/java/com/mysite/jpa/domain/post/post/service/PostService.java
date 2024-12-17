@@ -17,8 +17,6 @@ public class PostService {
                 .builder()
                 .title(title)
                 .content(content)
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .build();
 
         postRepository.save(post);
@@ -32,6 +30,13 @@ public class PostService {
 
     public Optional<Post> findById(long id) {
         return postRepository.findById(id);
+    }
+
+    public void modify(Post post, String title, String content){
+        post.setTitle(title);
+        post.setContent(content);
+
+        postRepository.save(post);
     }
 }
 
